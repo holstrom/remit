@@ -1,13 +1,6 @@
-import {
-  Leaf,
-  Mail,
-  Phone,
-  MapPin,
-  Linkedin,
-  Facebook,
-  Twitter,
-} from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Facebook, Twitter } from "lucide-react";
 import { Link } from "react-router-dom";
+import { LogoIcon } from "@/components/LogoIcon";
 
 const footerLinks = {
   products: [
@@ -20,7 +13,7 @@ const footerLinks = {
   company: [
     { label: "About Us", href: "/about" },
     { label: "Careers", href: "/enrollment" },
-    { label: "Contact", href: "#contact" },
+    { label: "Contact", href: "/enrollment" },
     // { label: "Blog", href: "#" },
     // { label: "Press", href: "#" },
   ],
@@ -40,12 +33,18 @@ const footerLinks = {
 };
 
 export const Footer = () => {
+  const scrollToTop = () => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   const renderFooterLink = (link: { label: string; href: string }) => {
     const className =
       "text-sm text-white/70 hover:text-white transition-colors";
     if (link.href.startsWith("/")) {
       return (
-        <Link to={link.href} className={className}>
+        <Link to={link.href} className={className} onClick={scrollToTop}>
           {link.label}
         </Link>
       );
@@ -65,9 +64,7 @@ export const Footer = () => {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan to-teal flex items-center justify-center">
-                <Leaf className="w-6 h-6 text-white" />
-              </div>
+              <LogoIcon className="w-10 h-10" />
               <div>
                 <span className="font-heading font-bold text-lg text-white">
                   Easy Remit Solutions
@@ -84,13 +81,13 @@ export const Footer = () => {
 
             {/* Contact Info */}
             <div className="space-y-3">
-              <div className="flex items-center gap-3 text-sm text-white/70">
+              {/* <div className="flex items-center gap-3 text-sm text-white/70">
                 <Phone className="w-4 h-4 text-cyan" />
                 <span>442-284-8726</span>
-              </div>
+              </div> */}
               <div className="flex items-center gap-3 text-sm text-white/70">
                 <Mail className="w-4 h-4 text-cyan" />
-                <span>info@easyremitsolutions.com</span>
+                <span>support@easyremitsolutions.com</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-white/70">
                 <MapPin className="w-4 h-4 text-cyan" />

@@ -1,6 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Zap, Globe } from "lucide-react";
-import heroImage from "@/assets/hero-image.jpg";
+import { Link } from "react-router-dom";
+
+const scrollToSolutions = () => {
+  if (typeof window === "undefined") return;
+  const target = document.querySelector("#solutions");
+  if (target) {
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+};
 
 export const HeroSection = () => {
   return (
@@ -27,7 +35,7 @@ export const HeroSection = () => {
       <div className="container px-4 max-w-[1200px] relative z-10 pt-32 pb-20">
         <div className="max-w-2xl">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8 animate-fade-in">
+          <div className="hidden xl:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8 animate-fade-in">
             <Zap className="w-4 h-4 text-gold" />
             <span className="text-sm text-white/90 font-medium">
               Instant Money Transfer
@@ -74,11 +82,13 @@ export const HeroSection = () => {
             className="flex flex-wrap gap-4 animate-slide-up"
             style={{ animationDelay: "0.3s" }}
           >
-            <Button variant="hero" size="xl">
-              Get Started
-              <ArrowRight className="w-5 h-5" />
+            <Button variant="hero" size="xl" asChild>
+              <Link to="/request-demo" className="flex items-center gap-2">
+                Request a Demo
+                <ArrowRight className="w-5 h-5" />
+              </Link>
             </Button>
-            <Button variant="hero-outline" size="xl">
+            <Button variant="outline" size="xl" onClick={scrollToSolutions}>
               Explore Solutions
             </Button>
           </div>

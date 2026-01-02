@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import {
   Users,
   ShieldCheck,
@@ -276,10 +277,10 @@ const About = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button variant="hero" size="lg" asChild>
-              <a href="/enrollment">Schedule Consultation</a>
+              <Link to="/enrollment">Schedule Consultation</Link>
             </Button>
             <Button variant="outline" size="lg" asChild>
-              <a href="#contact">Talk to Sales</a>
+              <Link to="/enrollment">Talk to Sales</Link>
             </Button>
           </div>
         </div>

@@ -44,12 +44,12 @@ const sections = [
   {
     title: "6. Your Rights",
     content:
-      "Depending on your jurisdiction, you may have rights to access, correct, delete, restrict, or port your personal data. Submit verified requests to privacy@easyremitsolutions.com and we will respond within the timelines mandated by applicable law.",
+      "Depending on your jurisdiction, you may have rights to access, correct, delete, restrict, or port your personal data. Submit verified requests to support@easyremitsolutions.com and we will respond within the timelines mandated by applicable law.",
   },
   {
     title: "7. Contact",
     content:
-      "Questions about this policy or our data practices can be sent to privacy@easyremitsolutions.com or Easy Remit Solutions, 400 Broome St, New York, NY 10013.",
+      "Questions about this policy or our data practices can be sent to support@easyremitsolutions.com or Easy Remit Solutions, 400 Broome St, New York, NY 10013.",
   },
 ];
 

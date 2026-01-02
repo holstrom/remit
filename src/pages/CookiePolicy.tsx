@@ -31,7 +31,7 @@ const sections = [
   {
     title: "5. Contact",
     content:
-      "Questions about cookies or tracking technologies can be directed to privacy@easyremitsolutions.com.",
+      "Questions about cookies or tracking technologies can be directed to support@easyremitsolutions.com.",
   },
 ];
 

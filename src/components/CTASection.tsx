@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Smartphone } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const CTASection = () => {
   return (
@@ -31,12 +32,14 @@ export const CTASection = () => {
           </p>
 
           <div className="flex flex-wrap justify-center gap-4">
-            <Button variant="hero" size="xl">
-              Download Now
-              <ArrowRight className="w-5 h-5" />
+            <Button variant="hero" size="xl" asChild>
+              <Link to="/enrollment" className="flex items-center gap-2">
+                Download Now
+                <ArrowRight className="w-5 h-5" />
+              </Link>
             </Button>
-            <Button variant="hero-outline" size="xl">
-              Schedule Demo
+            <Button variant="hero-outline" size="xl" asChild>
+              <Link to="/enrollment">Schedule Demo</Link>
             </Button>
           </div>
 

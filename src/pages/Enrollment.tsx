@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/card";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { LogoIcon } from "@/components/LogoIcon";
 import { useToast } from "@/hooks/use-toast";
 import {
   Calendar,
@@ -39,7 +40,6 @@ import {
   MapPin,
   Clock,
   HelpCircle,
-  Leaf,
 } from "lucide-react";
 
 const enrollmentSchema = z.object({
@@ -56,9 +56,7 @@ const enrollmentSchema = z.object({
   zipCode: z.string().min(1, "Zip code is required").max(20),
   preferredContact: z.string().min(1, "Please select preferred contact method"),
   bestTimeToContact: z.string().min(1, "Please select best time to contact"),
-  reasonForConsultation: z
-    .string()
-    .min(1, "Please select reason for consultation"),
+  reasonForConsultation: z.string().min(1, "Please select an area of interest"),
 });
 
 type EnrollmentFormData = z.infer<typeof enrollmentSchema>;
@@ -177,12 +175,12 @@ const Enrollment = () => {
         </div>
         <div className="container relative z-10 text-center">
           <h1 className="text-4xl md:text-5xl font-heading font-bold text-white mb-4">
-            Consultation Request
+            Join the Easy Remit Team
           </h1>
           <p className="text-lg text-white/80 max-w-2xl mx-auto">
-            Schedule a personalized consultation with Easy Remit Solutions
-            experts. We're here to help you find the perfect solution for your
-            remittance needs.
+            Share your background, interests, and availability so our talent
+            team can guide you through the enrollment process for upcoming roles
+            and hiring programs.
           </p>
         </div>
       </section>
@@ -192,14 +190,13 @@ const Enrollment = () => {
         <div className="container max-w-3xl">
           <Card className="shadow-2xl border-0">
             <CardHeader className="text-center pb-8 border-b">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br from-cyan to-teal flex items-center justify-center">
-                <Leaf className="w-8 h-8 text-white" />
-              </div>
+              <LogoIcon className="w-16 h-16 mx-auto mb-4" loading="lazy" />
               <CardTitle className="text-2xl font-heading">
                 Personal Information
               </CardTitle>
               <CardDescription className="text-base">
-                Please provide your details below to schedule your consultation
+                Provide a snapshot of your professional profile so we can match
+                you with the right opportunities.
               </CardDescription>
             </CardHeader>
 
@@ -497,7 +494,7 @@ const Enrollment = () => {
                     />
                   </div>
 
-                  {/* Reason for Consultation */}
+                  {/* Interest Area */}
                   <FormField
                     control={form.control}
                     name="reasonForConsultation"
@@ -505,7 +502,7 @@ const Enrollment = () => {
                       <FormItem>
                         <FormLabel className="flex items-center gap-2">
                           <HelpCircle className="w-4 h-4 text-primary" />
-                          Reason for Consultation{" "}
+                          Primary Area of Interest{" "}
                           <span className="text-destructive">*</span>
                         </FormLabel>
                         <Select
@@ -518,20 +515,20 @@ const Enrollment = () => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="sending">
-                              Sending Money Internationally
-                            </SelectItem>
-                            <SelectItem value="receiving">
-                              Receiving Money
-                            </SelectItem>
-                            <SelectItem value="business">
-                              Business Remittances
-                            </SelectItem>
-                            <SelectItem value="high-value">
-                              High-Value Transfers
+                            <SelectItem value="operations">
+                              Operations & Client Delivery
                             </SelectItem>
                             <SelectItem value="compliance">
-                              Compliance/Documentation Help
+                              Compliance, Risk & AML
+                            </SelectItem>
+                            <SelectItem value="sales">
+                              Sales & Partnerships
+                            </SelectItem>
+                            <SelectItem value="product">
+                              Product, Design & Engineering
+                            </SelectItem>
+                            <SelectItem value="support">
+                              Customer Support & Success
                             </SelectItem>
                           </SelectContent>
                         </Select>

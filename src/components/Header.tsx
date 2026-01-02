@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Leaf } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { LogoIcon } from "@/components/LogoIcon";
 
 const navLinks = [
   { label: "Home", href: "#home", isSection: true },
@@ -46,6 +47,21 @@ export const Header = () => {
     }
   };
 
+  const handleWorkWithUs = () => {
+    const scrollTop = () => {
+      if (typeof window === "undefined") return;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    if (location.pathname === "/enrollment") {
+      scrollTop();
+      return;
+    }
+
+    navigate("/enrollment");
+    setTimeout(() => scrollTop(), 150);
+  };
+
   const isOffHomepage = location.pathname !== "/";
 
   return (
@@ -59,18 +75,10 @@ export const Header = () => {
       <div className="container max-w-[1200px] flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 group">
-          <div
-            className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
-              isScrolled || isOffHomepage
-                ? "bg-gradient-to-br from-cyan to-teal"
-                : "bg-white/20 backdrop-blur-sm"
-            }`}
-          >
-            <Leaf className={`w-6 h-6 text-white`} />
-          </div>
+          <LogoIcon className="w-10 h-10" />
           <div>
             <span
-              className={`font-heading font-bold text-lg transition-colors ${
+              className={`hidden md:block font-heading font-bold text-lg transition-colors ${
                 isScrolled || isOffHomepage ? "text-navy" : "text-white"
               }`}
             >
@@ -102,18 +110,13 @@ export const Header = () => {
             variant={isScrolled || isOffHomepage ? "outline" : "hero-outline"}
             size="default"
             onClick={() =>
+              // handleNavClick({ href: "/#contact", isSection: false })
               handleNavClick({ href: "#contact", isSection: true })
             }
           >
             Contact Us
           </Button>
-          <Button
-            variant="hero"
-            size="default"
-            onClick={() =>
-              handleNavClick({ href: "/enrollment", isSection: false })
-            }
-          >
+          <Button variant="hero" size="default" onClick={handleWorkWithUs}>
             Work With Us
           </Button>
         </div>
@@ -157,6 +160,7 @@ export const Header = () => {
               variant="outline"
               className="w-full"
               onClick={() =>
+                // handleNavClick({ href: "/enrollment", isSection: false })
                 handleNavClick({ href: "#contact", isSection: true })
               }
             >
@@ -165,9 +169,7 @@ export const Header = () => {
             <Button
               variant="hero"
               className="w-full"
-              onClick={() =>
-                handleNavClick({ href: "/enrollment", isSection: false })
-              }
+              onClick={handleWorkWithUs}
             >
               Work With Us
             </Button>

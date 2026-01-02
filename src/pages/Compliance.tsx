@@ -101,9 +101,8 @@ const Compliance = () => {
           <div className="bg-secondary/40 border border-border rounded-2xl p-6">
             <p className="text-sm text-muted-foreground">
               Need additional documentation (policies, SOC reports,
-              penetration-test summaries)? Email
-              compliance@easyremitsolutions.com and our team will respond within
-              two business days.
+              penetration-test summaries)? Email support@easyremitsolutions.com
+              and our team will respond within two business days.
             </p>
           </div>
         </div>
