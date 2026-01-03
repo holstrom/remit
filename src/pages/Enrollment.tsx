@@ -1,9 +1,8 @@
-import emailjs from "@emailjs/browser";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import {
@@ -85,77 +84,53 @@ const Enrollment = () => {
     },
   });
 
-  useEffect(() => {
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-    if (publicKey && publicKey.trim()) {
-      emailjs.init({ publicKey: publicKey.trim() });
-    }
-  }, []);
-
   const onSubmit = async (data: EnrollmentFormData) => {
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-
-    const hasMissingCredentials = [serviceId, templateId, publicKey].some(
-      (value) => !value || !value.trim()
-    );
-
-    if (hasMissingCredentials) {
-      toast({
-        title: "Missing EmailJS settings",
-        description:
-          "Please add your EmailJS credentials to the environment file.",
-        variant: "destructive",
-      });
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {
-      const sanitizedServiceId = serviceId.trim();
-      const sanitizedTemplateId = templateId.trim();
-      const sanitizedPublicKey = publicKey.trim();
+      const formData = new FormData();
 
-      const templateParams = {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        fullName: `${data.firstName} ${data.lastName}`.trim(),
-        dateOfBirth: data.dateOfBirth,
-        gender: data.gender,
-        email: data.email,
-        mobileNumber: data.mobileNumber,
-        addressLine1: data.addressLine1,
-        addressLine2: data.addressLine2 ?? "",
-        city: data.city,
-        state: data.state,
-        zipCode: data.zipCode,
-        preferredContact: data.preferredContact,
-        bestTimeToContact: data.bestTimeToContact,
-        reasonForConsultation: data.reasonForConsultation,
-      };
+      // Mapping Zod fields to Google Form Entry IDs
+      // Note: These IDs are specific to the Google Form URL you provided.
+      formData.append("entry.1371248823", data.firstName);
+      formData.append("entry.1939104540", data.lastName);
+      formData.append("entry.291087354", data.dateOfBirth);
+      formData.append("entry.1964662095", data.gender);
+      formData.append("entry.272021715", data.email);
+      formData.append("entry.80667491", data.mobileNumber);
+      formData.append("entry.1682584497", data.addressLine1);
+      formData.append("entry.586252873", data.addressLine2 || "");
+      formData.append("entry.576299861", data.city);
+      formData.append("entry.316238957", data.state);
+      formData.append("entry.6680029", data.zipCode);
+      formData.append("entry.164026269", data.preferredContact);
+      formData.append("entry.2001322903", data.bestTimeToContact);
+      formData.append("entry.1180673315", data.reasonForConsultation);
 
-      await emailjs.send(
-        sanitizedServiceId,
-        sanitizedTemplateId,
-        templateParams,
-        {
-          publicKey: sanitizedPublicKey,
-        }
-      );
+      // The URL must end in /formResponse
+      const GOOGLE_FORM_ACTION_URL =
+        "https://docs.google.com/forms/d/e/1FAIpQLSeyuzlp_RKTeKkxxW2yUqDdSp0OXPBL8BzOvrmuXA14YxmAsQ/formResponse";
+
+      await fetch(GOOGLE_FORM_ACTION_URL, {
+        method: "POST",
+        mode: "no-cors", // Essential for client-side submission
+        body: formData,
+      });
 
       toast({
-        title: "Application Submitted!",
-        description: "We'll contact you within 24-48 business hours.",
+        title: "Application Submitted",
+        description:
+          "We have received your details and will contact you shortly.",
+        variant: "default",
       });
+
       form.reset();
     } catch (error) {
-      console.error("Enrollment submission failed", error);
+      console.error("Submission Error:", error);
       toast({
-        title: "Submission failed",
+        title: "Submission Failed",
         description:
-          "Please try again or contact support if the issue persists.",
+          "There was an error submitting your form. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -541,8 +516,8 @@ const Enrollment = () => {
                   <div className="pt-4">
                     <Button
                       type="submit"
-                      variant="hero"
-                      size="xl"
+                      variant="default"
+                      size="lg"
                       className="w-full"
                       disabled={isSubmitting}
                     >
